@@ -2,18 +2,17 @@
 name: deploy-to-host
 
 # Controls when the workflow will run
-on:
-  # has to be manually run
-  workflow_dispatch:
+on: 
+  release:
+    types:
+      - "published"
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   deploy:
     name: Push to hemisphere
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
@@ -30,7 +29,6 @@ jobs:
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
           
       - name: Deploy with rsync to '/var/www/' on hemisphere
-        run: |
-          echo $GITHUB_WORKSPACE
+        run:
           ls -lha
-          rsync -avz $GITHUB_WORKSPACE ${{ secrets.SSH_USER }}@${{secrets.SSH_HOST }}:/var/www/tech-tree.contrastellar.com/public_html
+          rsync -avz $GITHUB_WORKSPACE ${{ secrets.SSH_USER }}@${{secrets.SSH_HOST }}:${{secrets.DIRECTORY }}
