@@ -2,5 +2,4 @@
 
 
 ### REQUIREMENTS /w VER
-python == 3.10.6
 argparse >= 1.4.0
