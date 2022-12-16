@@ -5,7 +5,7 @@ on:
 
 jobs:
   deploy:
-    name: Push to hemisphere
+    name: Convert given dds folder to png.
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -18,15 +18,12 @@ jobs:
         with:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           known_hosts: 'placeholder'
-          
-      - name: Adding known hosts
+
+      - name: install fish
         run: |
+          sudo apt-get install fish --yes
+
+      - name: load into fish
+        run: |
+          fish
           echo $PWD
-          echo $whoami
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-          
-      - name: Deploy with rsync to '/var/www/' on hemisphere
-        run: |
-          echo $GITHUB_WORKSPACE
-          ls -lha
-          rsync -avz $GITHUB_WORKSPACE ${{ secrets.SSH_USER }}@${{secrets.SSH_HOST }}:/var/www/tech-tree.contrastellar.com/public_html
