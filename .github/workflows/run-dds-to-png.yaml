@@ -21,7 +21,7 @@ jobs:
 
       - name: install fish
         run: |
-          sudo apt-get install fish --yes
+          sudo apt-get install fish --yes --quiet
 
       - name: load into fish
         run: |
@@ -35,4 +35,4 @@ jobs:
           sudo apt-get install libmagickwand-dev --yes
 
       - name: install packages with pip
-        run: (which python3) -m pip install -r ./assets/py/requirements.txt
+        run: pip install -r ./assets/py/requirements.txt
