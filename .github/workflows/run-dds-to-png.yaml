@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  convert:
     name: Convert given dds folder to png.
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -27,3 +27,12 @@ jobs:
         run: |
           fish
           echo $PWD
+          echo $SHELL
+
+      - name: install python and wand
+        run: |
+          sudo apt-get install python3 --yes
+          sudo apt-get install libmagickwand-dev --yes
+
+      - name: install packages with pip
+        run: (which python3) -m pip install -r ./assets/py/requirements.txt
