@@ -1,6 +1,6 @@
 #!/usr/local/bin/fish
 # This is a fish script, and can only be run in fish.
 
-set version (ls -lha | grep -P -o '(\d(\.\d)+)$')
+set version (python3 loadPayload.py)
 
-(which python3) assets/py/dds-to-png.py -i $PW -o
+python3 assets/py/dds-to-png.py -i $version/technologies/ -o $version/technologies-output
