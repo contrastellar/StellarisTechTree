@@ -1,4 +1,4 @@
-# Script to load json, return the newest version of stellaris
+# Script to load json, return the newest version of stellaris based on a payload file
 import sys, json
 
 # ddsPayload.json uses a format like
